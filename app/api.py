@@ -1,5 +1,4 @@
 import requests
-
 from config import Config
 
 
@@ -8,10 +7,10 @@ class Api:
         self.appkey = appkey
         self.secretkey = secretkey
         self.config = config
-        self.approval_key = None
-        self.access_token = None
+        self.approval_key: str | None = None
+        self.access_token: str = ""
 
-    def approval(self) -> str:
+    def approval(self) -> str | None:
         """실시간 (웹소켓) 접속키 발급받으실 수 있는 API 입니다.
         웹소켓 이용 시 해당 키를 appkey와 appsecret 대신 헤더에 넣어 API를 호출합니다.
         """
