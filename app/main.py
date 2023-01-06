@@ -1,16 +1,21 @@
+import logging
+
 from api import Api
 from config import DevConfig as Config
 from dotenv import dotenv_values
 
+logger = logging.getLogger(__name__)
+
 
 def main():
     env = dotenv_values(".env")
-    api = Api(appkey=env["appkey"], secretkey=env["secretkey"], config=Config)
+    api = Api(appkey=env["appkey"], secretkey=env["secretkey"], config=Config)  # noqa
 
-    # print(api.approval())
-    # print(api.hashkey(contents={"STRING": "1234", "INT": 1234}))
-    # print(api.tokenp())
+    # logger.debug(api.approval())
+    # logger.debug(api.hashkey(contents={"STRING": "1234", "INT": 1234}))
+    # logger.debug(api.tokenp())
 
 
 if __name__ == "__main__":
+    logging.basicConfig(level=logging.DEBUG)
     main()
