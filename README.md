@@ -1,3 +1,2 @@
 # kis
-FIRE
-1
+FIRE!
