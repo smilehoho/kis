@@ -8,8 +8,8 @@ logger = logging.getLogger(__name__)
 
 
 def init_db():
-    from database import Base, engine
     import models  # noqa
+    from database import Base, engine
 
     Base.metadata.drop_all(bind=engine)
     Base.metadata.create_all(bind=engine)
