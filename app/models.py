@@ -1,6 +1,8 @@
-from database import Base
-from sqlalchemy import Column, DateTime, Integer, String
 from datetime import datetime
+
+from sqlalchemy import Column, DateTime, Integer, String
+
+from app.database import Base
 
 
 class Oauth2(Base):

@@ -1,8 +1,8 @@
 from sqlalchemy.orm import Session
-from models import Oauth2
+from app.models import Oauth2
 
 
-def get_aaccess_key(db: Session):
+def get_access_key(db: Session):
     return db.query(Oauth2).filter(Oauth2.status == "active").one_or_none()
 
 
