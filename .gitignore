@@ -172,6 +172,6 @@ poetry.toml
 
 
 # my gitignore
-.vscode
+.vscode/
 logs/
 *.db
