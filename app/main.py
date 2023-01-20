@@ -1,15 +1,16 @@
 import logging
 
-from api import Api
-from config import DevConfig as Config
 from dotenv import dotenv_values
+
+from app.api import Api
+from app.config import DevConfig as Config
 
 logger = logging.getLogger(__name__)
 
 
 def init_db():
-    import models  # noqa
-    from database import Base, engine
+    import app.models  # noqa
+    from app.database import Base, engine
 
     Base.metadata.drop_all(bind=engine)
     Base.metadata.create_all(bind=engine)
@@ -26,6 +27,6 @@ def main():
 
 if __name__ == "__main__":
     # logging.basicConfig(level=logging.DEBUG)
+
     init_db()
     main()
-    # sqlite3_test()

@@ -1,5 +1,5 @@
-from config import Config
-from helper.logging_requests import session
+from app.config import Config
+from app.helper.logging_requests import session
 
 
 class Api:
