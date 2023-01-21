@@ -1,15 +1,19 @@
+from sqlalchemy import select, update
 from sqlalchemy.orm import Session
-from app.models import Oauth2
+
 from app.enums import AccessKeyStatusEnum
-from sqlalchemy import select
+from app.models import Oauth2
 
 
-def get_access_key(db: Session) -> Oauth2 | None:
-    stmt = select(Oauth2).filter_by(status=AccessKeyStatusEnum.active)
-    return db.execute(stmt).scalars().one_or_none()
+def get_oauth2(db: Session) -> Oauth2 | None:
+    return (
+        db.execute(select(Oauth2).filter_by(status=AccessKeyStatusEnum.active))
+        .scalars()
+        .one_or_none()
+    )
 
 
-def create_access_key(db: Session, oauth2: Oauth2) -> Oauth2:
+def create_oauth2(db: Session, oauth2: Oauth2) -> Oauth2:
     db.add(oauth2)
     db.flush()
     db.refresh(oauth2)
@@ -18,4 +22,8 @@ def create_access_key(db: Session, oauth2: Oauth2) -> Oauth2:
 
 
 def expire_all_access_key(db: Session) -> int:
-    return db.query(Oauth2).update({Oauth2.status: AccessKeyStatusEnum.expired})
+    return db.execute(
+        update(Oauth2)
+        .where(Oauth2.status == AccessKeyStatusEnum.active)
+        .values(status=AccessKeyStatusEnum.expired)
+    ).rowcount

@@ -1,7 +1,7 @@
-from app.config import Config
-from app.helper.logging_requests import session
 from app import crud
+from app.config import Config
 from app.database import get_db
+from app.helper.logging_requests import session
 from app.models import Oauth2
 
 
@@ -56,7 +56,7 @@ class Api:
     def tokenp(self) -> str:
         """본인 계좌에 필요한 인증 절차로, 인증을 통해 접근 토큰을 부여받아 오픈API 활용이 가능합니다."""
         with get_db() as db:
-            oauth2 = crud.get_access_key(db=db)
+            oauth2 = crud.get_oauth2(db=db)
 
             if oauth2:
                 self.access_token = oauth2.access_token
@@ -77,7 +77,7 @@ class Api:
 
             if data:
                 crud.expire_all_access_key(db=db)
-                crud.create_access_key(db=db, oauth2=Oauth2(**data))
+                crud.create_oauth2(db=db, oauth2=Oauth2(**data))
 
             self.access_token = data["access_token"]
 

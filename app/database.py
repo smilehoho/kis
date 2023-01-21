@@ -10,13 +10,13 @@ engine = create_engine(
     echo=True,
     future=True,
 )
-Session = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 Base = declarative_base()
 
 
 @contextmanager
 def get_db():
-    db = Session()
+    db = SessionLocal()
 
     try:
         yield db

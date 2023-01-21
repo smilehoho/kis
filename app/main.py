@@ -23,11 +23,15 @@ def main():
     # logger.debug(api.approval())
     # logger.debug(api.hashkey(contents={"STRING": "1234", "INT": 1234}))
     # logger.debug(api.tokenp())
-    # logger.debug(api.test_db())
 
 
 if __name__ == "__main__":
     # logging.basicConfig(level=logging.DEBUG)
 
-    # init_db()
-    main()
+    import sys
+
+    if len(sys.argv) == 1:
+        main()
+    elif sys.argv[1] == "initdb":
+        init_db()
+        sys.exit()
